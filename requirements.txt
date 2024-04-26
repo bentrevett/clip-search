@@ -3,3 +3,4 @@ torchvision @ https://download.pytorch.org/whl/cpu/torchvision-0.17.2%2Bcpu-cp31
 transformers
 open_clip_torch
 flask
+flask-cors

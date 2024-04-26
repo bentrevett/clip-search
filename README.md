@@ -1,5 +1,7 @@
 # clip-search
 
+Run Docker Desktop, then:
+
 ```bash
 docker build -t clip-search .
 docker run -p 4000:5000 clip-search
