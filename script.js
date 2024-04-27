@@ -11,9 +11,12 @@ document
     });
 
 document.getElementById("search").addEventListener("click", async function () {
+    const searchText = document.getElementById("searchInput").value;
+    if (searchText === "") {
+        return;
+    }
     const searchResults = document.getElementById("searchResults");
     searchResults.innerHTML = "Loading...";
-    const searchText = document.getElementById("searchInput").value;
     const data = await lookup(searchText);
     console.log("Received data:", data);
     searchResults.innerHTML = "";
