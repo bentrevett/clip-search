@@ -59,7 +59,7 @@ function createImageHeaderElement(imagePath, similarityScore) {
 }
 function createImageElement(imagePath) {
     const imgElement = document.createElement("img");
-    imgElement.src = imagePath;
+    imgElement.src = `../${imagePath}`;
     imgElement.style.width = "300px";
     imgElement.style.height = "300px";
     imgElement.alt = imagePath;
