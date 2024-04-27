@@ -1,25 +1,36 @@
+document
+    .getElementById("searchInput")
+    .addEventListener("keyup", function (event) {
+        // Check if the key pressed is 'Enter'
+        if (event.key === "Enter") {
+            // Prevent the default action to avoid submitting the form if it's part of one
+            event.preventDefault();
+            // Trigger the click event on the Search button
+            document.getElementById("search").click();
+        }
+    });
+
 document.getElementById("search").addEventListener("click", async function () {
     const searchResults = document.getElementById("searchResults");
     searchResults.innerHTML = "Loading...";
-    const data = await lookup();
+    const searchText = document.getElementById("searchInput").value;
+    const data = await lookup(searchText);
     console.log("Received data:", data);
-    const imageNames = [
-        "red-hat-1.jpg",
-        "red-shirt-1.jpg",
-        "blue-hat-1.jpg",
-        "blue-shirt-1.jpg",
-    ];
     searchResults.innerHTML = "";
-    imageNames.forEach((imageName) => {
-        const imageNameElement = createImageNameElement(imageName);
-        searchResults.appendChild(imageNameElement);
-        const imgElement = createImageElement(imageName);
+    data.imagePaths.forEach((imagePath, index) => {
+        const similarityScore = data.similarity[index];
+        const imageHeaderElement = createImageHeaderElement(
+            imagePath,
+            similarityScore
+        );
+        searchResults.appendChild(imageHeaderElement);
+        const imgElement = createImageElement(imagePath);
         searchResults.appendChild(imgElement);
     });
 });
-async function lookup() {
+async function lookup(searchText) {
     const url = "http://localhost:4000/lookup";
-    const data = { text: "a red shirt" };
+    const data = { text: searchText };
 
     try {
         const response = await fetch(url, {
@@ -36,16 +47,18 @@ async function lookup() {
         return null;
     }
 }
-function createImageNameElement(imageName) {
+function createImageHeaderElement(imagePath, similarityScore) {
     const imageNameElement = document.createElement("p");
-    imageNameElement.innerText = imageName;
+    imageNameElement.innerText = `Path: ${imagePath}\nSimilarity: ${similarityScore.toFixed(
+        2
+    )}`;
     return imageNameElement;
 }
-function createImageElement(imageName) {
+function createImageElement(imagePath) {
     const imgElement = document.createElement("img");
-    imgElement.src = `images/${imageName}`;
+    imgElement.src = imagePath;
     imgElement.style.width = "300px";
     imgElement.style.height = "300px";
-    imgElement.alt = imageName;
+    imgElement.alt = imagePath;
     return imgElement;
 }

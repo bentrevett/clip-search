@@ -1,1 +1,3 @@
 /model
+docker/index.faiss
+docker/mapping.json

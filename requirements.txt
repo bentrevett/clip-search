@@ -1,6 +1,5 @@
-torch @ https://download.pytorch.org/whl/cpu/torch-2.2.2%2Bcpu-cp311-cp311-linux_x86_64.whl
-torchvision @ https://download.pytorch.org/whl/cpu/torchvision-0.17.2%2Bcpu-cp311-cp311-linux_x86_64.whl
-transformers
+torch
+faiss-cpu
+huggingface-hub
 open_clip_torch
-flask
-flask-cors
+pillow
